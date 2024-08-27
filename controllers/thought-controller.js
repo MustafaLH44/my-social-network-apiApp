@@ -14,7 +14,7 @@ const getAllThoughts = async (req, res) => {
 // Get a single thought by ID
 const getThoughtById = async (req, res) => {
   try {
-    const thought = await Thought.findById(req.params.id);
+    const thought = await Thought.findById(req.params.thoughtId);
     if (!thought) return res.status(404).json({ message: 'Thought not found' });
     res.json(thought);
   } catch (err) {
@@ -39,7 +39,7 @@ const createThought = async (req, res) => {
 // Update a thought by ID
 const updateThought = async (req, res) => {
   try {
-    const thought = await Thought.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const thought = await Thought.findByIdAndUpdate(req.params.thoughtId, req.body, { new: true });
     if (!thought) return res.status(404).json({ message: 'Thought not found' });
     res.json(thought);
   } catch (err) {
@@ -50,7 +50,7 @@ const updateThought = async (req, res) => {
 // Delete a thought by ID
 const deleteThought = async (req, res) => {
   try {
-    const thought = await Thought.findByIdAndDelete(req.params.id);
+    const thought = await Thought.findByIdAndDelete(req.params.thoughtId);
     if (!thought) return res.status(404).json({ message: 'Thought not found' });
 
     // Remove the thought's ID from the associated user's thoughts array

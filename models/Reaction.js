@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, Types } = require('mongoose');
+const dateFormat = require('../utils/dateFormat');
 
 // Reaction Schema
 const reactionSchema = new Schema({
@@ -19,7 +19,7 @@ const reactionSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    get: (createdAtVal) => new Date(createdAtVal).toLocaleDateString()
+    get: timestamp => dateFormat(timestamp)
   }
 });
 

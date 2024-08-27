@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-const reactionSchema = require('./Reaction'); // Import the reaction schema
+const { Schema, model } = require('mongoose');
+const reactionSchema = require('./Reaction');
+const dateFormat = require('../utils/dateFormat'); // Import the reaction schema
 
 // Thought Schema
 const thoughtSchema = new Schema({
@@ -13,7 +13,7 @@ const thoughtSchema = new Schema({
   createdAt: {
     type: Date,
     default: Date.now,
-    get: (createdAtVal) => new Date(createdAtVal).toLocaleDateString()
+    get: timestamp => dateFormat(timestamp)
   },
   username: {
     type: String,
@@ -26,4 +26,6 @@ thoughtSchema.virtual('reactionCount').get(function() {
   return this.reactions.length;
 });
 
-module.exports = mongoose.model('Thought', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
+
+module.exports = Thought;

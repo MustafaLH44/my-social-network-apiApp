@@ -13,7 +13,7 @@ const getAllUsers = async (req, res) => {
 // Get a single user by ID
 const getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id).populate('thoughts').populate('friends');
+    const user = await User.findById(req.params.userId).populate('thoughts').populate('friends');
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
   } catch (err) {
@@ -34,7 +34,7 @@ const createUser = async (req, res) => {
 // Update a user by ID
 const updateUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const user = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true });
     if (!user) return res.status(404).json({ message: 'User not found' });
     res.json(user);
   } catch (err) {
@@ -45,7 +45,7 @@ const updateUser = async (req, res) => {
 // Delete a user by ID
 const deleteUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    const user = await User.findByIdAndDelete(req.params.userId);
     if (!user) return res.status(404).json({ message: 'User not found' });
 
     // BONUS: Remove the user's associated thoughts
